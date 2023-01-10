@@ -7,13 +7,27 @@ dotenv.config();
  */
 import express from 'express';
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 /**
  * Setup database
  */
 import { initDatabaseConnection } from './database/DatabaseConnector.js';
 await initDatabaseConnection();
+
+/**
+ * Setup Swagger
+ */
+
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import SwaggerOptions from './swagger/SwaggerOption.js';
+const specs = swaggerJsdoc(SwaggerOptions);
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs)
+);
 
 /**
  * Setup routes
@@ -35,7 +49,7 @@ app.use(cors());
 app.use('/companies', SuperUserMiddleware.validateSuperUser, CompanyRoute);
 app.use('/client-admin', SuperUserMiddleware.validateSuperUser, ClientAdminRoute);
 app.use('/employees', ClientAdminMiddleware.validateClientAdmin, EmployeeRoute);
-app.use('/employee-transfer', EmployeeMiddleware.validateEmployee, EmployeeMoneyTransferRoute)
+app.use('/employee-money-transfer', EmployeeMiddleware.validateEmployee, EmployeeMoneyTransferRoute)
 app.use('/', (_req, res) => {
   return res.status(HttpStatus.OK).send({
     status: 'ok',

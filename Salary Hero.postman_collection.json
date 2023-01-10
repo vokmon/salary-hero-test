@@ -185,52 +185,6 @@
 			"response": []
 		},
 		{
-			"name": "Get all companies http://localhost:8080/companies",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "superuser",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "superuser",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/companies",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"companies"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Add a client admin for a company http://localhost:8080/client-admin",
 			"request": {
 				"auth": {
@@ -520,6 +474,56 @@
 					"path": [
 						"employees",
 						"import"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Money transfer http://localhost:8080/employees/employee1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "employee1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "11111",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "companyId",
+						"value": "397d70d6-dfae-4082-9a19-a30de62be9b3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"transferAmount\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/employee-money-transfer/transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee-money-transfer",
+						"transfer"
 					]
 				}
 			},

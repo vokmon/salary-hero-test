@@ -20,7 +20,7 @@ const EmployeeMiddleware = {
     const result = await dbClientPool.query(sql, [authStringUsername, authStringPassword, companyId]);
   
     if (result.rowCount === 0) {
-      return res.status(HttpStatus.NOT_FOUND).send({
+      return res.status(HttpStatus.UNAUTHORIZED).send({
         message: `The user ${authStringUsername} from company ${companyId} is not authorized for the request.`,
       });
     }

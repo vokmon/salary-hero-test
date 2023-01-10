@@ -216,27 +216,6 @@ const CompanyController = {
       });
     }
   },
-
-  getAllCompany: async (req, res) => {
-    try {
-      console.log(`Start getting all companies`)
-
-      /**
-       * Improvement -> pagination
-       */
-      const sql = `Select id, name, address, phone from company`;
-
-      const result = await dbClientPool.query(sql);
-      const records = result.rows;
-      console.log('Get records', records);
-      return res.status(HttpStatus.OK).send(records);
-    } catch (e) {
-      console.log(`An error occurs while getting the companies`, e);
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-        message: e.message
-      });
-    }
-  },
 }
 
 export default CompanyController;
